@@ -21,8 +21,7 @@ import java.util.function.Function;
  * as well as methods for checking if a given token is valid and extracting claims from the token.
  * The class uses the {@link io.jsonwebtoken} libraries for creating and parsing tokens.
  *
- * @author Eralp Nitelik
- */
+*/
 @Service
 public class JwtService {
 
