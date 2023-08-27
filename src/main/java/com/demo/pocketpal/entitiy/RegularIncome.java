@@ -1,18 +1,15 @@
 package com.demo.pocketpal.entitiy;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 public class RegularIncome {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +17,7 @@ public class RegularIncome {
 
     private String name;
     private Double amount;
-    private LocalDate date;
-
+    private int incomeDayOfEachMonth;
     @ManyToOne
-    @JoinColumn(name = "person_id")
     private Person person;
 }
