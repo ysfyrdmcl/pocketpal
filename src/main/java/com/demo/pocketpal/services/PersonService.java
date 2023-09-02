@@ -45,6 +45,18 @@ public class PersonService extends ServiceManager<Person, Long> {
             .build());
     return true;
     }
+    public Boolean deleteRegularExpense (Long id){
+        regularExpenseRepository.deleteById(id);
+        return true;
+    }
+    public RegularFlowResponseDto updateRegularExpense(Long id,RegularFlowRequestDto dto) {
+        RegularExpense regularExpense = regularExpenseRepository.findById(id).orElseThrow(() -> new RuntimeException("Regular Expense is not Found"));
+        regularExpense.setName(dto.getName());
+        regularExpense.setAmount(dto.getAmount());
+        regularExpense.setExpenseDayOfEachMonth(dto.getRegularFlowDayOfEachMonth());
+        regularExpenseRepository.save(regularExpense);
+        return new RegularFlowResponseDto(regularExpense.getId(), regularExpense.getName(), regularExpense.getAmount(), regularExpense.getExpenseDayOfEachMonth());
+    }
     public Boolean createRegularIncome (RegularFlowRequestDto dto){
 
         Long currentUserIdOptional = Optional.of((Long) SecurityContextHolder.getContext().getAuthentication().getCredentials()).get();
@@ -57,6 +69,18 @@ public class PersonService extends ServiceManager<Person, Long> {
                 .person(currentPerson)
                 .build());
         return true;
+    }
+    public Boolean deleteRegularIncome (Long id){
+        regularIncomeRepository.deleteById(id);
+        return true;
+    }
+    public RegularFlowResponseDto updateRegularIncome(Long id,RegularFlowRequestDto dto) {
+        RegularIncome regularIncome = regularIncomeRepository.findById(id).orElseThrow(() -> new RuntimeException("Regular Income is not Found"));
+        regularIncome.setName(dto.getName());
+        regularIncome.setAmount(dto.getAmount());
+        regularIncome.setIncomeDayOfEachMonth(dto.getRegularFlowDayOfEachMonth());
+        regularIncomeRepository.save(regularIncome);
+        return new RegularFlowResponseDto(regularIncome.getId(), regularIncome.getName(), regularIncome.getAmount(), regularIncome.getIncomeDayOfEachMonth());
     }
 
     public Boolean createIrregularExpense(IrregularFlowRequestDto dto){
@@ -71,6 +95,18 @@ public class PersonService extends ServiceManager<Person, Long> {
                 .build());
         return true;
     }
+    public Boolean deleteIrregularExpense (Long id){
+        irregularExpenseRepository.deleteById(id);
+        return true;
+    }
+    public IrregularFlowResponseDto updateIrregularExpense(Long id,IrregularFlowRequestDto dto) {
+        IrregularExpense irregularExpense = irregularExpenseRepository.findById(id).orElseThrow(() -> new RuntimeException("Irregular Expense is not Found"));
+        irregularExpense.setName(dto.getName());
+        irregularExpense.setAmount(dto.getAmount());
+        irregularExpense.setDate(dto.getDate());
+        irregularExpenseRepository.save(irregularExpense);
+        return new IrregularFlowResponseDto(irregularExpense.getId(), irregularExpense.getName(), irregularExpense.getAmount(), irregularExpense.getDate());
+    }
 
     public Boolean createIrregularIncome(IrregularFlowRequestDto dto){
         Long currentUserIdOptional = Optional.of((Long) SecurityContextHolder.getContext().getAuthentication().getCredentials()).get();
@@ -82,6 +118,23 @@ public class PersonService extends ServiceManager<Person, Long> {
                 .date(dto.getDate())
                 .person(currentPerson)
                 .build());
+        return true;
+    }
+    public Boolean deleteIrregularIncome (Long id){
+        irregularIncomeRepository.deleteById(id);
+        return true;
+    }
+    public IrregularFlowResponseDto updateIrregularIncome(Long id,IrregularFlowRequestDto dto) {
+        IrregularIncome irregularIncome = irregularIncomeRepository.findById(id).orElseThrow(() -> new RuntimeException("Irregular Income is not Found"));
+        irregularIncome.setName(dto.getName());
+        irregularIncome.setAmount(dto.getAmount());
+        irregularIncome.setDate(dto.getDate());
+        irregularIncomeRepository.save(irregularIncome);
+        return new IrregularFlowResponseDto(irregularIncome.getId(), irregularIncome.getName(), irregularIncome.getAmount(), irregularIncome.getDate());
+    }
+
+    public Boolean deletePerson(Long id){
+        iPersonRepository.deleteById(id);
         return true;
     }
     public PersonInfoResponseDto getPersonInfoWithEmail(String email){
@@ -99,4 +152,5 @@ public class PersonService extends ServiceManager<Person, Long> {
                 .irregularIncomes(person.getIrregularIncomes().stream().map(income -> new IrregularFlowResponseDto(income.getId(), income.getName(), income.getAmount(), income.getDate())).collect(Collectors.toList()))
                 .build();
     }
+
 }

@@ -5,13 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthenticationResponseDto {
-    private String token;
+public class RegisterResponseDto {
     private Long responseCode;
     private String message;
+
 }

@@ -34,16 +34,15 @@ public class FilterChainConfig {
                 // requests below do not need authentication.
                 .authorizeHttpRequests(auth -> auth.requestMatchers(WHITELIST)
                         .permitAll()
-                // requests below require certain roles to access content. (Order matters!)
-                .requestMatchers("/admin/**")
-                .hasRole("ADMIN")
-                .requestMatchers("/person/**")
-                .hasAnyRole("ADMIN")
-                .requestMatchers("/**")
-                .hasAnyRole("ADMIN","USER")
-                // all other requests require authentication.
-                .anyRequest()
-                .authenticated()
+                        // requests below require certain roles to access content. (Order matters!)
+
+                        .requestMatchers("/person/**")
+                        .hasAnyRole( "ADMIN","USER")
+                        .requestMatchers("/**")
+                        .hasAnyRole("ADMIN")
+                        // all other requests require authentication.
+                        .anyRequest()
+                        .authenticated()
                 )
                 // authentication should not be stored thus stateless session.
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
