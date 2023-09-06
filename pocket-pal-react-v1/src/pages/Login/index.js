@@ -15,8 +15,10 @@ export default function Index() {
     "container " + (type === "signUp" ? "right-panel-active" : "");
   return (
     <div className="Index">
-      <h1>Pocket Pal</h1>
-      <br></br>
+      <div className="logo-background">
+        <div className="logo"> <img src='/pocketpallogo.gif' alt="GIF" /></div>
+      </div>
+
       <div className={containerClass} id="container">
         <SignUpForm />
         <SignInForm />
